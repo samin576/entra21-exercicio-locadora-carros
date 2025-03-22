@@ -1,6 +1,4 @@
-﻿using AppBanco;
-using System;
-using System.ComponentModel.Design;
+﻿using AppLocadora;
 namespace Program
 {
     class Program

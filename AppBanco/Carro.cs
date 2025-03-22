@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AppBanco
+﻿namespace AppLocadora
 {
     class Carro : Veiculo, IVeiculo
     {
-        public Carro() { }
-
-
+        public Carro(string modelo, string marca, int ano, double valorBase) : base(modelo, marca, ano, valorBase) { }
         public override double CalcularAluguel(int dias)
         {
-            return base.CalcularAluguel(dias);
+            return ValorBase * dias;
         }
     }
 }

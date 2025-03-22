@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AppBanco
+﻿namespace AppLocadora
 {
     class Caminhao : Veiculo, IVeiculo
     {
-        public Caminhao() { }
+        public Caminhao(string modelo, string marca, int ano, double valorBase) : base(modelo, marca, ano, valorBase) { }
         public override double CalcularAluguel(int dias)
         {
-            double totalDoAluguel = ValorBase * dias;            
-            totalDoAluguel = totalDoAluguel - (totalDoAluguel * 0.20);
+            double totalDoAluguel = ValorBase * dias;
+            totalDoAluguel = totalDoAluguel + (totalDoAluguel * 0.20);
             return totalDoAluguel;
         }
     }
