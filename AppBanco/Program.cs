@@ -5,21 +5,28 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            Veiculo veiculo = new Veiculo();
-            int opcao;
-            do
+            try
             {
-                Menu();
-                opcao = int.Parse(Console.ReadLine());
-                Escolha(opcao, veiculo);
-                if (opcao != 5)
+                Veiculo veiculo = new Veiculo();
+                int opcao;
+                do
                 {
-                    Console.WriteLine("--Digite ENTER para prosseguir--");
-                    Console.ReadLine();
-                    Console.Clear();
-                }
-            } while (opcao != 5);
-            Console.WriteLine("Muito obrigado e adeus!");
+                    Menu();
+                    opcao = int.Parse(Console.ReadLine());
+                    Escolha(opcao, veiculo);
+                    if (opcao != 5)
+                    {
+                        Console.WriteLine("--Digite ENTER para prosseguir--");
+                        Console.ReadLine();
+                        Console.Clear();
+                    }
+                } while (opcao != 5);
+                Console.WriteLine("Muito obrigado e adeus!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Algo deu errado! Reinicie o programa! {e.Message}");
+            }
 
         }
         static void Menu()
