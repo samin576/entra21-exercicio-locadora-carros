@@ -14,13 +14,13 @@ namespace Program
                 Menu();
                 opcao = int.Parse(Console.ReadLine());
                 Escolha(opcao, veiculo);
-                if (opcao != 4)
+                if (opcao != 5)
                 {
                     Console.WriteLine("--Digite ENTER para prosseguir--");
                     Console.ReadLine();
                     Console.Clear();
                 }
-            } while (opcao != 4);
+            } while (opcao != 5);
             Console.WriteLine("Muito obrigado e adeus!");
 
         }
@@ -48,7 +48,7 @@ namespace Program
                     veiculo.ListarVeiculos();
                     break;
                 case 4:
-                    //FazerAluguel();
+                    veiculo.FazerAluguel();
                     break;
                 case 5:
                     break;
