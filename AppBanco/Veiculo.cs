@@ -1,126 +1,237 @@
 ﻿namespace AppLocadora
 {
-    class Veiculo : IVeiculo
+    public class Veiculo : IVeiculo
     {
-        List<Veiculo> VeiculosCadastrados = new List<Veiculo>();
         private string _modelo;
         private string _marca;
         private int _ano;
-        private double _valorBase;
+        private double _precoBase;
+        public string Modelo
+        {
+            get { return _modelo; }
+            set
+            {
+                _modelo = !string.IsNullOrEmpty(value) ? value : throw new ArgumentException("Opção inválida!");
+            }
+        }
+        public string Marca
+        {
+            get { return _marca; }
+            set { _marca = !string.IsNullOrEmpty(value) ? value : throw new ArgumentException("Opção inválida!"); }
+        }
+        public int Ano
+        {
+            get { return _ano; }
+            set { _ano = value > 0 ? value : throw new ArgumentException("Ano deve ser maior que 0!"); }
+        }
+        public double PrecoBase
+        {
+            get { return _precoBase; }
+            set { _precoBase = value > 0 ? value : throw new ArgumentException("Preço deve ser maior que 0!"); }
+        }
 
-        public Veiculo(string modelo, string marca, int ano, double valorBase)
+        public Veiculo() { }
+        public Veiculo(string modelo, string marca, int ano, double precoBase)
         {
             _modelo = modelo;
             _marca = marca;
             _ano = ano;
-            _valorBase = valorBase;
+            _precoBase = precoBase;
         }
-        public Veiculo() { }
+        static List<Veiculo> listVeiculos = new List<Veiculo>();
+        static List<Veiculo> listCarros = new List<Veiculo>();
+        static List<Veiculo> listMotos = new List<Veiculo>();
+        static List<Veiculo> listCaminhoes = new List<Veiculo>();
 
-        public string Modelo
-        { get { return _modelo; } set { _modelo = value; } }
-        public string Marca
-        { get { return _marca; } set { _marca = value; } }
-        public int Ano
-        { get { return _ano; } set { _ano = value; } }
-        public double ValorBase
-        { get { return _valorBase; } set { _valorBase = value; } }
         public void CadastrarVeiculo()
         {
-            Veiculo novoVeiculo = new Veiculo();
-            Console.WriteLine("Qual é o modelo do veiculo?");
-            novoVeiculo.Modelo = Console.ReadLine();
-            Console.WriteLine("Qual é a marca?");
-            novoVeiculo.Marca = Console.ReadLine();
-            Console.WriteLine("Qual é o ano?");
-            novoVeiculo.Ano = int.Parse(Console.ReadLine());
-            Console.WriteLine("Qual é o valor base dele?");
-            novoVeiculo.ValorBase = double.Parse(Console.ReadLine());
-            VeiculosCadastrados.Add(novoVeiculo);
-            Console.WriteLine("Veículo cadastrado com sucesso!");
-        }
-        public void RemovaVeiculo()
-        {
-            if (VeiculosCadastrados.Count == 0)
+            Veiculo veiculo = new Veiculo();
+            Console.WriteLine("""
+                1 - Carro
+                2 - Moto
+                3 - Caminhão
+                4 - Cancelar operação
+                """);
+            int escolha = int.Parse(Console.ReadLine());
+            if (escolha == 4)
             {
-                Console.WriteLine("Você não tem nenhum veículo cadastrado, logo não tem como remover!");
+                Console.WriteLine("Operação cancelada!");
+                return;
             }
-            else
+            Console.WriteLine("Nome do veículo:");
+            veiculo.Modelo = Console.ReadLine();
+            Console.WriteLine("Marca do veículo:");
+            veiculo.Marca = Console.ReadLine();
+            Console.WriteLine("Ano do veículo:");
+            veiculo.Ano = int.Parse(Console.ReadLine());
+            Console.WriteLine("Preço base do veículo:");
+            veiculo.PrecoBase = double.Parse(Console.ReadLine());
+            switch (escolha)
             {
-                for (int i = 0; i < VeiculosCadastrados.Count; i++)
-                {
-                    Console.WriteLine($"{i} - {VeiculosCadastrados[i].Modelo} | Ano {VeiculosCadastrados[i].Ano} ");
-                }
-                Console.WriteLine("Qual veículo deseja remover?");
-                int escolha = int.Parse(Console.ReadLine());
-                VeiculosCadastrados.Remove(VeiculosCadastrados[escolha]);
-                Console.WriteLine("Veículo removido com sucesso!");
+                case 1:
+                    listCarros.Add(new Carro(veiculo.Modelo, veiculo.Marca, veiculo.Ano, veiculo.PrecoBase));
+                    listVeiculos.Add(new Carro(veiculo.Modelo, veiculo.Marca, veiculo.Ano, veiculo.PrecoBase));
+                    Console.WriteLine("Operação terminada!");
+                    break;
+                case 2:
+                    listMotos.Add(new Moto(veiculo.Modelo, veiculo.Marca, veiculo.Ano, veiculo.PrecoBase));
+                    listVeiculos.Add(new Moto(veiculo.Modelo, veiculo.Marca, veiculo.Ano, veiculo.PrecoBase));
+                    Console.WriteLine("Operação terminada!");
+                    break;
+                case 3:
+                    listCaminhoes.Add(new Caminhao(veiculo.Modelo, veiculo.Marca, veiculo.Ano, veiculo.PrecoBase));
+                    listVeiculos.Add(new Caminhao(veiculo.Modelo, veiculo.Marca, veiculo.Ano, veiculo.PrecoBase));
+                    Console.WriteLine("Operação terminada!");
+                    break;
+                default:
+                    Console.WriteLine("Opção não válida!");
+                    break;
             }
         }
         public void ListarVeiculos()
         {
-            if (VeiculosCadastrados.Count == 0)
+            Console.WriteLine("""
+                1 - Carros
+                2 - Motos
+                3 - Caminhões
+                4 - Todos os veículos
+                5 - Cancelar operação
+                """);
+            int escolha = int.Parse(Console.ReadLine());
+            switch (escolha)
             {
-                Console.WriteLine("Você não tem nenhum veículo cadastrado!");
-            }
-            else
-            {
-                for (int i = 0; i < VeiculosCadastrados.Count; i++)
-                {
-                    Console.WriteLine($"{i} {VeiculosCadastrados[i].Modelo} | Marca {VeiculosCadastrados[i].Marca} | Ano {VeiculosCadastrados[i].Ano} | Valor Base {VeiculosCadastrados[i].ValorBase} reais");
-                }
+                case 1:
+                    if (listCarros.Count == 0)
+                    {
+                        Console.WriteLine("Não tem nenhum carro cadastrado!");
+                    }
+                    else
+                    {
+                        for (int i = 0; i < listCarros.Count; i++)
+                        {
+                            Console.WriteLine($"{listCarros[i].Modelo} | Marca {listCarros[i].Marca} | Ano {listCarros[i].Ano} | Valor base: {listCarros[i].PrecoBase} reais");
+                        }
+                    }
+                    break;
+                case 2:
+                    if (listMotos.Count == 0)
+                    {
+                        Console.WriteLine("Não tem motos cadastradas!");
+                    }
+                    else
+                    {
+                        for (int i = 0; i < listMotos.Count; i++)
+                        {
+                            Console.WriteLine($"{listMotos[i].Modelo} | Marca {listMotos[i].Marca} | Ano {listMotos[i].Ano} | Valor base: {listMotos[i].PrecoBase} reais");
+                        }
+                    }
+                    break;
+                case 3:
+                    if (listCaminhoes.Count == 0)
+                    {
+                        Console.WriteLine("Não tem caminhões cadastrados!");
+                    }
+                    else
+                    {
+                        for (int i = 0; i < listCaminhoes.Count; i++)
+                        {
+                            Console.WriteLine($"{listCaminhoes[i].Modelo} | Marca {listCaminhoes[i].Marca} | Ano {listCaminhoes[i].Ano} | Valor base: {listCaminhoes[i].PrecoBase} reais");
+                        }
+                    }
+                    break;
+                case 4:
+                    if (listVeiculos.Count == 0)
+                    {
+                        Console.WriteLine("Não tem nenhum veículo cadastrado!");
+                    }
+                    else
+                    {
+                        for (int i = 0; i < listVeiculos.Count; i++)
+                        {
+                            Console.WriteLine($"{listVeiculos[i].Modelo} | Marca  {listVeiculos[i].Marca}  | Ano  {listVeiculos[i].Ano}  | Valor base: {listVeiculos[i].PrecoBase} reais");
+                        }
+                    }
+                    break;
+                case 5:
+                    Console.WriteLine("Operação cancelada!");
+                    break;
+                default:
+                    Console.WriteLine("Opção não válida!");
+                    break;
             }
         }
         public void FazerAluguel()
         {
-            if (VeiculosCadastrados.Count == 0)
+            Console.WriteLine("""
+                1 - Carros
+                2 - Motos
+                3 - Caminhões
+                4 - Cancelar operação
+                """);
+            int escolha = int.Parse(Console.ReadLine());
+            int escolhaVeiculo;
+            switch (escolha)
             {
-                Console.WriteLine("Você não tem nenhum veículo cadastrado, logo não tem como fazer o aluguel!");
-            }
-            else
-            {
-                for (int i = 0; i < VeiculosCadastrados.Count; i++)
-                {
-                    Console.WriteLine($"{i} - {VeiculosCadastrados[i].Modelo} | Marca {VeiculosCadastrados[i].Marca} | Ano {VeiculosCadastrados[i].Ano} | Valor Base {VeiculosCadastrados[i].ValorBase} reais");
-                }
-                Console.WriteLine("Qual veículo deseja fazer o aluguel?");
-                int escolha = int.Parse(Console.ReadLine());
-                Console.WriteLine("""
-                    Qual é o tipo de veículo?
-                    1 - Carro
-                    2 - Moto
-                    3 - Caminhão
-                    """);
-                int opcoes = int.Parse(Console.ReadLine());
-                Console.WriteLine("Por quantos dias?");
-                int dias = int.Parse(Console.ReadLine());
-                Veiculo veiculo = null;
-                switch (opcoes)
-                {
-                    case 1:
-                        veiculo = new Carro(VeiculosCadastrados[escolha].Modelo, VeiculosCadastrados[escolha].Marca, VeiculosCadastrados[escolha].Ano, VeiculosCadastrados[escolha].ValorBase);
-                        break;
-                    case 2:
-                        veiculo = new Moto(VeiculosCadastrados[escolha].Modelo, VeiculosCadastrados[escolha].Marca, VeiculosCadastrados[escolha].Ano, VeiculosCadastrados[escolha].ValorBase);
-                        break;
-                    case 3:
-                        veiculo = new Caminhao(VeiculosCadastrados[escolha].Modelo, VeiculosCadastrados[escolha].Marca, VeiculosCadastrados[escolha].Ano, VeiculosCadastrados[escolha].ValorBase);
-                        break;
-                    default:
-                        Console.WriteLine("Opção não cadastrada!");
-                        break;
-                }
-                Console.Clear();
-                Console.WriteLine("Resumo do pedido:");
-                Console.WriteLine($"{VeiculosCadastrados[escolha].Modelo} | Ano {VeiculosCadastrados[escolha].Ano} | Dias {dias}");
-                Console.WriteLine($"Total de: {veiculo.CalcularAluguel(dias)} reais");
-                Console.WriteLine("Obrigado por alugar!");
+                case 1:
+                    if (listCarros.Count == 0)
+                    {
+                        Console.WriteLine("Não tem nenhum carro cadastrado!");
+                    }
+                    else
+                    {
+                        for (int i = 0; i < listCarros.Count; i++)
+                        {
+                            Console.WriteLine($"{i} - {listCarros[i].Modelo} | Marca {listCarros[i].Marca} | Ano {listCarros[i].Ano} | Valor base: {listCarros[i].PrecoBase} reais");
+                        }
+                        escolhaVeiculo = int.Parse(Console.ReadLine());
+                        Console.WriteLine($"O total é de {listCarros[escolhaVeiculo].CalcularAluguel(listCarros[escolhaVeiculo].PrecoBase)} reais");
+                    }
+                    break;
+                case 2:
+                    if (listMotos.Count == 0)
+                    {
+                        Console.WriteLine("Não tem motos cadastradas!");
+                    }
+                    else
+                    {
+                        for (int i = 0; i < listMotos.Count; i++)
+                        {
+                            Console.WriteLine($"{i} - {listMotos[i].Modelo} | Marca {listMotos[i].Marca} | Ano {listMotos[i].Ano} | Valor base: {listMotos[i].PrecoBase} reais");
+                        }
+                        escolhaVeiculo = int.Parse(Console.ReadLine());
+                        Console.WriteLine($"O total é de {listMotos[escolhaVeiculo].CalcularAluguel(listMotos[escolhaVeiculo].PrecoBase)} reais");
+
+                    }
+                    break;
+                case 3:
+                    if (listCaminhoes.Count == 0)
+                    {
+                        Console.WriteLine("Não tem caminhões cadastrados!");
+                    }
+                    else
+                    {
+                        for (int i = 0; i < listCaminhoes.Count; i++)
+                        {
+                            Console.WriteLine($"{i} - {listCaminhoes[i].Modelo}  | Marca  {listCaminhoes[i].Marca}  | Ano  {listCaminhoes[i].Ano}  | Valor base: {listCaminhoes[i].PrecoBase} reais");
+                        }
+                        escolhaVeiculo = int.Parse(Console.ReadLine());
+                        Console.WriteLine($"O total é de {listCaminhoes[escolhaVeiculo].CalcularAluguel(listCaminhoes[escolhaVeiculo].PrecoBase)} reais");
+                    }
+                    break;
+                case 4:
+                    Console.WriteLine("Operação cancelada!");
+                    break;
+                default:
+                    Console.WriteLine("Comando não entendido! Desculpa =(");
+                    break;
             }
         }
-        public virtual double CalcularAluguel(int dias)
+        public virtual double CalcularAluguel(double precoBase)
         {
-            double totalDoAluguel = ValorBase * dias;
-            return totalDoAluguel;
+            Console.WriteLine("Seria por quantos dias?");
+            int dias = int.Parse(Console.ReadLine());
+            double total = dias * precoBase;
+            return total;
         }
     }
 }

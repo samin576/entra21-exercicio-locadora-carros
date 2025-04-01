@@ -1,5 +1,4 @@
-﻿using AppLocadora;
-namespace Program
+﻿namespace AppLocadora
 {
     class Program
     {
@@ -7,60 +6,61 @@ namespace Program
         {
             try
             {
-                Veiculo veiculo = new Veiculo();
-                int opcao;
+                int escolha;
                 do
                 {
+                    Veiculo veiculo = new Veiculo();
                     Menu();
-                    opcao = int.Parse(Console.ReadLine());
-                    Escolha(opcao, veiculo);
-                    if (opcao != 5)
+                    escolha = int.Parse(Console.ReadLine());
+                    Opcoes(escolha, veiculo);
+                    if (escolha != 0)
                     {
-                        Console.WriteLine("--Digite ENTER para prosseguir--");
+                        Console.WriteLine("--Digite enter para continuar--");
                         Console.ReadLine();
                         Console.Clear();
                     }
-                } while (opcao != 5);
-                Console.WriteLine("Muito obrigado e adeus!");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Algo deu errado! Reinicie o programa! {e.Message}");
-            }
 
+                } while (escolha != 0);
+                Console.WriteLine("Adeus!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ops! Reinicie o programa! {ex.Message}");
+            }
         }
-        static void Menu()
+        static public void Menu()
         {
             Console.WriteLine("""
-                1 - Cadastrar novo veículo
-                2 - Remova veículo
-                3 - Listar veículos
-                4 - Faça o aluguel
-                5 - Sair
+                1 - Cadastrar veículo
+                2 - Listar veículos
+                3 - Fazer aluguel
+                0 - Sair
                 """);
         }
-        static void Escolha(int opcao, Veiculo veiculo)
+        static public void Opcoes(int escolha, Veiculo veiculo)
         {
-            switch (opcao)
+            Console.Clear();
+            switch (escolha)
             {
+                case 0:
+                    break;
                 case 1:
                     veiculo.CadastrarVeiculo();
                     break;
                 case 2:
-                    veiculo.RemovaVeiculo();
-                    break;
-                case 3:
                     veiculo.ListarVeiculos();
                     break;
-                case 4:
+                case 3:
                     veiculo.FazerAluguel();
                     break;
-                case 5:
-                    break;
                 default:
-                    Console.WriteLine("Você não digitou uma opção válida!");
+                    Console.WriteLine("Opção não válida!");
                     break;
+
+
+
             }
         }
     }
+
 }

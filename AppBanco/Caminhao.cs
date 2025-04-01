@@ -1,13 +1,18 @@
 ﻿namespace AppLocadora
 {
-    class Caminhao : Veiculo, IVeiculo
+    public class Caminhao : Veiculo, IVeiculo
     {
-        public Caminhao(string modelo, string marca, int ano, double valorBase) : base(modelo, marca, ano, valorBase) { }
-        public override double CalcularAluguel(int dias)
+        public Caminhao(string modelo, string marca, int ano, double precoBase) : base(modelo, marca, ano, precoBase)
         {
-            double totalDoAluguel = ValorBase * dias;
-            totalDoAluguel = totalDoAluguel + (totalDoAluguel * 0.20);
-            return totalDoAluguel;
+        }
+        public override double CalcularAluguel(double precoBase)
+        {
+            Console.WriteLine("Seria por quantos dias?");
+            int dias = int.Parse(Console.ReadLine());
+            double totalParcial = dias * precoBase;
+            double total = totalParcial + (totalParcial * 0.2);
+            return total;
+
         }
     }
 }

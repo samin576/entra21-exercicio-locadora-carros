@@ -2,6 +2,6 @@
 {
     public interface IVeiculo
     {
-        double CalcularAluguel(int dias);
+        public double CalcularAluguel(double precoBase);
     }
 }
