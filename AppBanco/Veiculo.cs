@@ -184,7 +184,7 @@
                             Console.WriteLine($"{i} - {listCarros[i].Modelo} | Marca {listCarros[i].Marca} | Ano {listCarros[i].Ano} | Valor base: {listCarros[i].PrecoBase} reais");
                         }
                         escolhaVeiculo = int.Parse(Console.ReadLine());
-                        Console.WriteLine($"O total é de {listCarros[escolhaVeiculo].CalcularAluguel(listCarros[escolhaVeiculo].PrecoBase)} reais");
+                        Console.WriteLine($"{listCarros[escolhaVeiculo].Modelo} | Marca {listCarros[escolhaVeiculo].Marca} | Ano {listCarros[escolhaVeiculo].Ano} | Custo: {listCarros[escolhaVeiculo].CalcularAluguel(listCarros[escolhaVeiculo].PrecoBase)} reais");
                     }
                     break;
                 case 2:
@@ -199,7 +199,7 @@
                             Console.WriteLine($"{i} - {listMotos[i].Modelo} | Marca {listMotos[i].Marca} | Ano {listMotos[i].Ano} | Valor base: {listMotos[i].PrecoBase} reais");
                         }
                         escolhaVeiculo = int.Parse(Console.ReadLine());
-                        Console.WriteLine($"O total é de {listMotos[escolhaVeiculo].CalcularAluguel(listMotos[escolhaVeiculo].PrecoBase)} reais");
+                        Console.WriteLine($"{listMotos[escolhaVeiculo].Modelo} | Marca {listMotos[escolhaVeiculo].Marca} | Ano {listMotos[escolhaVeiculo].Ano} | Custo: {listMotos[escolhaVeiculo].CalcularAluguel(listMotos[escolhaVeiculo].PrecoBase)} reais");
 
                     }
                     break;
@@ -215,11 +215,11 @@
                             Console.WriteLine($"{i} - {listCaminhoes[i].Modelo}  | Marca  {listCaminhoes[i].Marca}  | Ano  {listCaminhoes[i].Ano}  | Valor base: {listCaminhoes[i].PrecoBase} reais");
                         }
                         escolhaVeiculo = int.Parse(Console.ReadLine());
-                        Console.WriteLine($"O total é de {listCaminhoes[escolhaVeiculo].CalcularAluguel(listCaminhoes[escolhaVeiculo].PrecoBase)} reais");
+                        Console.WriteLine($"{listCaminhoes[escolhaVeiculo].Modelo} | Marca {listCaminhoes[escolhaVeiculo].Marca} | Ano {listCaminhoes[escolhaVeiculo].Ano} | Custo: {listCaminhoes[escolhaVeiculo].CalcularAluguel(listCaminhoes[escolhaVeiculo].PrecoBase)} reais");
                     }
                     break;
                 case 4:
-                    Console.WriteLine("Operação cancelada!!");
+                    Console.WriteLine("Operação cancelada!");
                     break;
                 default:
                     Console.WriteLine("Comando não entendido! Desculpa =(");
